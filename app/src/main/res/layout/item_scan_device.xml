@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="wristbandModule"
+            type="com.minew.wristband.ble.bean.WristbandModule" />
+
+        <variable
+            name="onActivatedListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onItemClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:onClick="@{onItemClickListener}"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_scan_device_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="18dp"
+            android:text="@{wristbandModule.macAddress}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Mac: AA:22:33:44:55:66" />
+
+        <TextView
+            android:id="@+id/tv_scan_device_rssi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="18dp"
+            app:rssi="@{wristbandModule.rssi}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_scan_device_mac"
+            app:layout_constraintVertical_bias="0.242"
+            tools:text="RSSI:-50" />
+
+        <TextView
+            android:id="@+id/tv_scan_device_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="18dp"
+            app:power="@{wristbandModule.power}"
+            app:layout_constraintStart_toStartOf="@id/tv_scan_device_mac"
+            app:layout_constraintTop_toBottomOf="@id/tv_scan_device_mac"
+            tools:text="电量：100" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_scan_device_activate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            tools:text="Inactivated"
+            android:onClick="@{onActivatedListener}"
+            app:isActivated="@{wristbandModule.isAwakened}"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="@id/tv_scan_device_rssi"
+            app:layout_constraintTop_toTopOf="@id/tv_scan_device_battery" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
